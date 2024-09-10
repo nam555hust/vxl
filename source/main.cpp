@@ -1,17 +1,20 @@
 #include <SFML/Audio.hpp>
+#include <iostream>
+#include <vector>
+#include <string>
 #include <GLFW/glfw3.h>           // Include GLFW header
 #include "MusicPlayerUI.hpp"
 #include "AudioService.hpp"
 #include "imgui.h"
 #include "imgui_impl_glfw.h"      // Include ImGui GLFW binding
 #include "imgui_impl_opengl3.h"   // Include ImGui OpenGL binding
-
+#include <sqlite3.h>
 int main() {
     // Initialize GLFW
     if (!glfwInit()) {
         return -1;
     }
-
+    // Database database("music_player.db");
     // Create a windowed mode window and its OpenGL context
     GLFWwindow* window = glfwCreateWindow(1280, 720, "Music Player", NULL, NULL);
     if (!window) {
@@ -23,11 +26,6 @@ int main() {
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // Enable vsync
 
-    // Initialize OpenGL loader (GLAD or another library)
-    // if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-    //     return -1;
-    // }
-
     // Initialize ImGui
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -37,12 +35,12 @@ int main() {
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 130");
 
-    // Initialize SFML AudioService
-    AudioService *audioService = new AudioService();
+    sf::Music music;
+    AudioService audioService(music);
 
     // Create MusicPlayerUI instance
-    MusicPlayerUI playerUI(audioService);
-
+    MusicPlayUI playerUI(audioService);
+    // MediaLibrary mediaLibrary;
     // Main loop to render UI and handle logic
     while (!glfwWindowShouldClose(window)) {
         // Poll and handle events
@@ -54,7 +52,7 @@ int main() {
         ImGui::NewFrame();
 
         // Render the music player UI
-        playerUI.Render();
+        playerUI.RenderUI("C:\\Users\\Admin\\Downloads");
 
         // End the ImGui frame and render to screen
         ImGui::Render();

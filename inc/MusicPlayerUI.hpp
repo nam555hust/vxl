@@ -4,6 +4,14 @@
 #include "AudioService.hpp"
 #include "imgui.h"
 #include "MediaLibrary.hpp"
-void RenderUI(Database& db, MediaLibrary library);
+#include "Database.hpp"
+class MusicPlayUI{
+    public:
+        MusicPlayUI(AudioService m_audioService) : audioService(m_audioService){}
+        void RenderUI(std::string path);
+    private:
+        AudioService audioService;
+};
+
 
 #endif

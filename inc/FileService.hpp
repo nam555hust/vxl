@@ -4,8 +4,11 @@
 #include "Song.hpp"
 class FileService {
 public:
-    std::vector<Song> loadPlaylist(const std::string& filePath);
-    void savePlaylist(const std::string& filePath, const std::vector<Song>& playlist);
+    FileService(std::string m_path) : path(m_path){}
+    std::vector<Song> loadPlaylist();
+    void savePlaylist(const std::vector<Song>& playlist);
+private:
+    std::string path;
 };
 
 #endif
