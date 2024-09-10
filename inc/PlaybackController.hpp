@@ -3,7 +3,7 @@
 
 #include "PlaylistManager.hpp"
 #include "AudioService.hpp"
-
+#include "Song.hpp"
 class PlaybackController {
 private:
     PlaylistManager* playlistManager;
@@ -15,33 +15,33 @@ public:
 
     void play() {
         Song currentTrack = playlistManager->getCurrentTrack();
-        audioService->playTrack(currentTrack);
+        audioService->Play(currentTrack.getFilePath());
     }
 
     void pause() {
-        audioService->pauseTrack();
+        audioService->Pause();
     }
 
     void stop() {
-        audioService->stopTrack();
+        audioService->Stop();
     }
 
     void next() {
         if (playlistManager->hasNext()) {
             Song nextTrack = playlistManager->nextTrack();
-            audioService->playTrack(nextTrack);
+            audioService->Play(nextTrack.getFilePath());
         }
     }
 
     void previous() {
         if (playlistManager->hasPrevious()) {
-            Song prevTrack = playlistManager->previousTrack();
-            audioService->playTrack(prevTrack);
+            Song prevTrack = playlistManager->preTrack();
+            audioService->Play(prevTrack.getFilePath());
         }
     }
 
-    void setVolume(int volume) {
-        audioService->setVolume(volume);
+    void setVolume(float volume) {
+        audioService->SetVolume(volume);
     }
 
     PlaylistManager* getPlaylistManager() {

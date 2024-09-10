@@ -28,7 +28,7 @@ add_library(imgui STATIC
 )
 target_include_directories(imgui PUBLIC extern/imgui)
 
-
+find_package(SQLite3 REQUIRED)
 find_package(SFML 2.5 REQUIRED graphics window system)
 find_package(OpenGL REQUIRED COMPONENTS OpenGL)
 # Define the target executable
@@ -36,7 +36,7 @@ add_executable(${PROJECT_NAME}
     source/main.cpp
     source/MusicPlayerUI.cpp
     source/AudioService.cpp
-    source/PlaylistManager.cpp
+    source/FileService.cpp
 )
 
 # Set include directories for the target

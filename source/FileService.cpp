@@ -2,9 +2,9 @@
 #include <fstream>
 #include <iostream>
 
-std::vector<Song> FileService::loadPlaylist(const std::string& filePath) {
+std::vector<Song> FileService::loadPlaylist() {
     std::vector<Song> playlist;
-    std::ifstream file(filePath);
+    std::ifstream file(path);
     std::string title, artist, album, path;
 
     if (file.is_open()) {
@@ -19,8 +19,8 @@ std::vector<Song> FileService::loadPlaylist(const std::string& filePath) {
     return playlist;
 }
 
-void FileService::savePlaylist(const std::string& filePath, const std::vector<Song>& playlist) {
-    std::ofstream file(filePath);
+void FileService::savePlaylist(const std::vector<Song>& playlist) {
+    std::ofstream file(path);
 
     if (file.is_open()) {
         for (const auto& song : playlist) {
@@ -31,3 +31,6 @@ void FileService::savePlaylist(const std::string& filePath, const std::vector<So
         std::cerr << "Unable to save playlist file!" << std::endl;
     }
 }
+// int main(){
+
+// }

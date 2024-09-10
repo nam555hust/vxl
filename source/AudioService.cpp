@@ -1,16 +1,18 @@
 #include "AudioService.hpp"
-
-AudioService::AudioService() {
-    music.setVolume(50.f);
-}
-
-void AudioService::Play(const std::string& filepath) {
-    music.openFromFile(filepath);
-    music.play();
-}
+#include <iostream>
+bool AudioService::Play(const std::string& filePath) {
+        if (music.openFromFile(filePath)) {
+            music.play();
+            return true;
+        } else {
+            std::cout << "Error: Could not load music file!" << std::endl;
+            return false;
+        }
+    }
 
 void AudioService::Pause() {
-    music.pause();
+    if(music.getStatus() == sf::SoundSource::Playing)
+        music.pause();
 }
 
 void AudioService::Stop() {
@@ -18,7 +20,8 @@ void AudioService::Stop() {
 }
 
 void AudioService::SetVolume(float volume) {
-    music.setVolume(volume);
+    currentVolume = volume;
+    music.setVolume(currentVolume);
 }
 
 float AudioService::GetVolume() const {
